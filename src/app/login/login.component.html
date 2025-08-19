@@ -1,0 +1,45 @@
+<div class="login-wrapper">
+  <div class="form-container" [class.signup-mode]="isCadastro">
+    <!-- Login -->
+    <div class="form-box login-box">
+      <img src="assets/logo.png" alt="Logo VaPo" class="logo" />
+      <h2>Login</h2>
+
+      <div class="form-fields">
+        <input type="text" placeholder="Usuário" />
+        <input type="password" placeholder="Senha" />
+        <button class="jelly-button jelly-primary" (click)="entrar()">
+          <span class="char" *ngFor="let l of loginLabel; let i = index" [style.--i]="i + 1">{{ l }}</span>
+        </button>
+      </div>
+
+      <p class="switch-text">
+        Não tem conta? <a (click)="alternar()">Cadastre-se</a>
+      </p>
+    </div>
+
+    <!-- Cadastro -->
+    <div class="form-box cadastro-box">
+      <img src="assets/logo.png" alt="Logo VaPo" class="logo" />
+      <h2>Cadastro</h2>
+
+      <div class="form-fields">
+        <input type="text" placeholder="Usuário" />
+        <input type="password" placeholder="Senha" />
+        <input type="email" placeholder="E-mail" />
+        <button class="jelly-button jelly-secondary" (click)="cadastrar()">
+          <span class="char" *ngFor="let c of cadastrarLabel; let i = index" [style.--i]="i + 1">{{ c }}</span>
+        </button>
+      </div>
+
+      <p class="switch-text">
+        Já tem conta? <a (click)="alternar()">Entrar</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer fixo -->
+  <div class="footer">
+    <h4>Valores de Postos 2025 - VaPo</h4>
+  </div>
+</div>

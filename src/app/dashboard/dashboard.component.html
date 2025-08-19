@@ -1,0 +1,18 @@
+<div class="dashboard-container">
+  <h1 class="dashboard-title">Visão Geral dos Postos</h1>
+  <h1 class="dashboard-title">Média</h1>
+
+  <div class="resumo-cards">
+    <div class="resumo-card" *ngFor="let c of combustiveis" [ngClass]="c.tipo">
+
+      <h3>{{ c.tipo | titlecase }}</h3>
+      <p>
+        R$ {{ medias[c.id] !== undefined ? (medias[c.id] | number:'1.2-2') : 'Carregando...' }}
+      </p>
+    </div>
+  </div>
+
+  <div class="espaco-graficos">
+    <p>Aqui você pode colocar gráficos, mapas ou relatórios futuros.</p>
+  </div>
+</div>

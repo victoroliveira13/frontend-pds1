@@ -1,0 +1,89 @@
+.jelly-button {
+  padding: 12px 36px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  background: var(--jelly-bg, linear-gradient(135deg, #00d283, #01a86b));
+}
+
+.jelly-primary {
+  --jelly-bg: linear-gradient(135deg, #00d283, #01a86b);
+}
+
+.jelly-secondary {
+  --jelly-bg: linear-gradient(135deg, #c985f7, #a45de9);
+}
+
+.jelly-button .char {
+  display: inline-block;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  transform: translateY(0);
+  opacity: 1;
+  filter: blur(0);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.jelly-button:hover .char {
+  animation: charAppear 0.6s ease forwards;
+  animation-delay: calc(var(--i) * 60ms);
+}
+
+@keyframes charAppear {
+  0% {
+    transform: translateY(50%);
+    opacity: 0;
+    filter: blur(20px);
+  }
+
+  20% {
+    transform: translateY(70%);
+    opacity: 1;
+  }
+
+  50% {
+    transform: translateY(-15%);
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.footer {
+  margin-top: 25px;
+  color: #ffffff;
+  font-size: 14px;
+  text-align: center;
+}
+
+.footer h4 {
+  font-family: monospace;
+  color: #000000;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #000000;
+  animation: typing 3s steps(35) infinite alternate;
+  max-width: 35ch;
+}
+
+@keyframes typing {
+  from {
+    width: 0ch;
+  }
+  to {
+    width: 35ch;
+  }
+}

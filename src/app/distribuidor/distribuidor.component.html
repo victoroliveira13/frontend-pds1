@@ -1,0 +1,23 @@
+<div class="container-distribuidor">
+  <h2 class="titulo">Distribuidores</h2>
+
+  <input
+    type="text"
+    [(ngModel)]="filtro"
+    placeholder="Pesquisar por nome..."
+    class="input-pesquisa"
+  />
+
+  <div *ngIf="distribuidoresFiltrados.length > 0; else vazio">
+    <ul class="lista-distribuidores">
+      <li *ngFor="let d of distribuidoresFiltrados">
+        <strong>{{ d.nome }}</strong><br />
+        <small>{{ d.localizacao }}</small>
+      </li>
+    </ul>
+  </div>
+
+  <ng-template #vazio>
+    <p class="mensagem-vazia">Nenhum distribuidor encontrado.</p>
+  </ng-template>
+</div>

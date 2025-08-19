@@ -1,0 +1,25 @@
+<div class="container">
+  <main class="main-content">
+    <h1 class="titulo">Lista de Preços</h1>
+    <input type="text" [(ngModel)]="filtro" placeholder="Filtrar por nome do posto..." class="filtro">
+
+    <div class="tabela-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Localização</th>
+            <th *ngFor="let tipo of tiposCombustivel">{{ tipo | titlecase }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let posto of postosFiltrados">
+            <td>{{ posto.razaoSocial }}</td>
+            <td>{{ formatEndereco(posto) }}</td>
+            <td *ngFor="let tipo of tiposCombustivel">{{ getPreco(posto, tipo) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>

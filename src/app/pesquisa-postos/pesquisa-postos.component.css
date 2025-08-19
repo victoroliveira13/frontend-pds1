@@ -1,0 +1,120 @@
+body, html {
+  background-color: #a3d5ff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container-mapa {
+  max-width: 1400px;
+  height: auto;
+  margin: 30px auto;
+  padding: 30px;
+  background-color: #c5f4f2;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+.search-bar {
+  padding-right: 7%;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  display: flex;
+  gap: 10px;
+}
+
+.search-bar input {
+  background-color: #004d40;
+  border-radius: 8px;
+  padding: 8px 15px;
+  border: none;
+  outline: none;
+  width: 200px;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+
+.search-bar input::placeholder {
+  color: #b2dfdb;
+}
+
+.search-bar button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: #004d40;
+}
+
+.mapa-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding-right: 8%;
+  padding-left: 8%;
+}
+
+.info-posto {
+  background-color: #004d40;
+  border-radius: 15px;
+  padding: 25px;
+  width: 300px;
+  height: 100%;
+  min-height: 350px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  color: white;
+}
+
+
+.titulo {
+  padding-left: 5%;
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #004d40;
+}
+
+.info-posto h3 {
+  margin-bottom: 15px;
+  color: white;
+  font-size: 22px;
+}
+
+.info-posto p {
+  margin-bottom: 10px;
+  color: #b2dfdb;
+  font-weight: 500;
+}
+
+.info-posto img {
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Mapa */
+.mapa-imagem {
+  margin-top: 6%;
+  width: 100%;
+  max-width: 700px;
+  height: 350px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  transition: all 0.3s ease-in-out;
+}
+
+.mapa-imagem:hover {
+  cursor: url('https://cdn-icons-png.flaticon.com/32/744/744465.png') 16 16, pointer;
+  transform: scale(1.02);
+}

@@ -1,0 +1,14 @@
+<div *ngIf="mostrarSidebar(); else simpleLayout" class="container">
+  <app-sidebar></app-sidebar>
+
+  <main class="main-content">
+    <router-outlet></router-outlet>
+    <footer class="footer">
+      <h4>Valores de Postos 2025 - VaPo</h4>
+    </footer>
+  </main>
+</div>
+
+<ng-template #simpleLayout>
+  <router-outlet></router-outlet>
+</ng-template>
