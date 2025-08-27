@@ -35,19 +35,21 @@ export class LoginComponent {
         Swal.fire({
           icon: 'success',
           title: 'Bem-vindo!',
-          text: `Olá, ${res.nome}`
+          text: `Olá, ${res.login}`
         });
         this.router.navigate(['/dashboard']);
       },
-      error: () => {
+      error: (err) => {
+        // err.error.message vem do backend
         Swal.fire({
           icon: 'error',
           title: 'Erro',
-          text: 'Login inválido. Verifique usuário e senha.'
+          text: err.error?.message || 'Erro inesperado.'
         });
       }
     });
   }
+
 
   cadastrar() {
     if (!this.registerData.senha || !this.confirmarSenha) {
