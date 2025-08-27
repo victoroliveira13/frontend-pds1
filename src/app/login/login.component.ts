@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -15,19 +18,72 @@ export class LoginComponent {
   loginLabel = 'Entrar'.split('');
   cadastrarLabel = 'Cadastrar'.split('');
 
-  constructor(private router: Router) {}
+  loginData = { login: '', senha: '' };
+  registerData = { nome: '', login: '', senha: '', email: '', role: 0 };
+  confirmarSenha = '';
+
+  constructor(private router: Router, private authService: AuthService) {}
 
   alternar() {
     this.isCadastro = !this.isCadastro;
   }
 
   entrar() {
-    // lógica de login poderia ir aqui
-    this.router.navigate(['/dashboard']);
+    this.authService.login(this.loginData).subscribe({
+      next: (res) => {
+        localStorage.setItem('token', res.token);
+        Swal.fire({
+          icon: 'success',
+          title: 'Bem-vindo!',
+          text: `Olá, ${res.nome}`
+        });
+        this.router.navigate(['/dashboard']);
+      },
+      error: () => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro',
+          text: 'Login inválido. Verifique usuário e senha.'
+        });
+      }
+    });
   }
 
   cadastrar() {
-    // lógica de cadastro poderia ir aqui
-    this.router.navigate(['/dashboard']);
+    if (!this.registerData.senha || !this.confirmarSenha) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Atenção',
+        text: 'Preencha a senha e a confirmação!'
+      });
+      return;
+    }
+
+    if (this.registerData.senha !== this.confirmarSenha) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erro',
+        text: 'As senhas não coincidem!'
+      });
+      return;
+    }
+
+    this.authService.register(this.registerData).subscribe({
+      next: () => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Cadastro realizado!',
+          text: 'Agora você pode fazer login.'
+        });
+        this.alternar();
+      },
+      error: () => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro no cadastro',
+          text: 'Não foi possível concluir o cadastro.'
+        });
+      }
+    });
   }
 }

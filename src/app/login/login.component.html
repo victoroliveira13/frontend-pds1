@@ -1,13 +1,14 @@
 <div class="login-wrapper">
   <div class="form-container" [class.signup-mode]="isCadastro">
+    
     <!-- Login -->
-    <div class="form-box login-box">
+    <div class="form-box login-box" *ngIf="!isCadastro">
       <img src="assets/logo.png" alt="Logo VaPo" class="logo" />
       <h2>Login</h2>
 
       <div class="form-fields">
-        <input type="text" placeholder="Usuário" />
-        <input type="password" placeholder="Senha" />
+        <input type="text" placeholder="Usuário" [(ngModel)]="loginData.login" />
+        <input type="password" placeholder="Senha" [(ngModel)]="loginData.senha" />
         <button class="jelly-button jelly-primary" (click)="entrar()">
           <span class="char" *ngFor="let l of loginLabel; let i = index" [style.--i]="i + 1">{{ l }}</span>
         </button>
@@ -19,14 +20,16 @@
     </div>
 
     <!-- Cadastro -->
-    <div class="form-box cadastro-box">
+    <div class="form-box cadastro-box" *ngIf="isCadastro">
       <img src="assets/logo.png" alt="Logo VaPo" class="logo" />
       <h2>Cadastro</h2>
 
       <div class="form-fields">
-        <input type="text" placeholder="Usuário" />
-        <input type="password" placeholder="Senha" />
-        <input type="email" placeholder="E-mail" />
+        <input type="text" placeholder="Usuário" [(ngModel)]="registerData.login" />
+        <input type="password" placeholder="Senha" [(ngModel)]="registerData.senha" />
+        <input type="password" placeholder="Confirmar Senha" [(ngModel)]="confirmarSenha" />
+        <input type="email" placeholder="E-mail" [(ngModel)]="registerData.email" />
+
         <button class="jelly-button jelly-secondary" (click)="cadastrar()">
           <span class="char" *ngFor="let c of cadastrarLabel; let i = index" [style.--i]="i + 1">{{ c }}</span>
         </button>
@@ -38,7 +41,6 @@
     </div>
   </div>
 
-  <!-- Footer fixo -->
   <div class="footer">
     <h4>Valores de Postos 2025 - VaPo</h4>
   </div>
