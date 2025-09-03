@@ -1,21 +1,19 @@
-<h1 class="titulo">Pesquisas postos</h1>
+<div class="container">
+  <main class="main-content">
+    <h1 class="titulo">Pesquisa de Postos</h1>
+    <input type="text" placeholder="Filtrar por nome do posto..." class="filtro">
 
-<div class="container-mapa">
-
-  <div class="search-bar">
-    <input type="text" placeholder="Pesquisa">
-    <button>☰</button>
-  </div>
-
-  <div class="mapa-content">
-    <div class="info-posto">
-      <h3>Posto Montreal</h3>
-      <p>Nota: 4.66/5</p>
-      <p>Distância: 2.3 Km</p>
-      <img src="/assets/grafico.png" alt="Gráfico de preços">
+    <div class="tabela-wrapper">
+      <!-- Google Maps embed -->
+      <iframe
+        width="100%"
+        height="450"
+        style="border:0; border-radius: 10px;"
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Postos+de+Combustível+Brasil">
+      </iframe>
     </div>
-
-    <img src="/assets/mapa.png" alt="Mapa localização" class="mapa-imagem">
-  </div>
-
+  </main>
 </div>
