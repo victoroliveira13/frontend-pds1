@@ -14,6 +14,9 @@ import { PesquisaPostosComponent } from './pesquisa-postos/pesquisa-postos.compo
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HttpClientModule } from '@angular/common/http';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../guards/auth.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,9 +32,11 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     CommonModule,
     FormsModule,
-    RouterModule.forRoot(routes) // 💥 ESSENCIAL
+    RouterModule.forRoot(routes) 
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

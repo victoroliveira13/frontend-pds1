@@ -50,3 +50,28 @@
 .sidebar a:hover {
   transform: scale(1.03);
 }
+
+.sidebar-footer {
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.logout-btn {
+  background: linear-gradient(145deg, #e53935, #b71c1c);
+  border-radius: 25px;
+  padding: 12px 20px;
+  width: 70%;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease-in-out;
+}
+
+.logout-btn:hover {
+  transform: scale(1.03);
+}

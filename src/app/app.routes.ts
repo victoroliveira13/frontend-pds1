@@ -6,11 +6,14 @@ import { LoginComponent } from './login/login.component';
 import { DistribuidorComponent } from './distribuidor/distribuidor.component';
 import { PostosComponent } from './postos/postos.component';
 
+import { authGuard } from '../guards/auth.guard';
+
 export const routes: Routes = [
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'pesquisa-postos', component: PesquisaPostosComponent },
-  { path: 'lista-precos', component: ListaPrecosComponent },
-  { path: 'distribuidor', component: DistribuidorComponent },
-  { path: 'postos', component: PostosComponent },
   { path: '', component: LoginComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
+  { path: 'pesquisa-postos', component: PesquisaPostosComponent, canActivate: [authGuard] },
+  { path: 'lista-precos', component: ListaPrecosComponent, canActivate: [authGuard] },
+  { path: 'distribuidor', component: DistribuidorComponent, canActivate: [authGuard] },
+  { path: 'postos', component: PostosComponent, canActivate: [authGuard] },
+  { path: '**', redirectTo: '' }, 
 ];

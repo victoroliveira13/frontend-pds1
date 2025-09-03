@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   isCadastro = false;
 
   loginLabel = 'Entrar'.split('');
@@ -24,6 +24,14 @@ export class LoginComponent {
 
   constructor(private router: Router, private authService: AuthService) {}
 
+  ngOnInit(): void {
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Se já existe token, redireciona para dashboard
+      this.router.navigate(['/dashboard']);
+    }
+  }
+
   alternar() {
     this.isCadastro = !this.isCadastro;
   }
@@ -32,15 +40,9 @@ export class LoginComponent {
     this.authService.login(this.loginData).subscribe({
       next: (res) => {
         localStorage.setItem('token', res.token);
-        Swal.fire({
-          icon: 'success',
-          title: 'Bem-vindo!',
-          text: `Olá, ${res.login}`
-        });
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
-        // err.error.message vem do backend
         Swal.fire({
           icon: 'error',
           title: 'Erro',
@@ -49,7 +51,6 @@ export class LoginComponent {
       }
     });
   }
-
 
   cadastrar() {
     if (!this.registerData.senha || !this.confirmarSenha) {
@@ -70,6 +71,16 @@ export class LoginComponent {
       return;
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(this.registerData.email)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erro',
+        text: 'E-mail inválido!'
+      });
+      return;
+    }
+
     this.authService.register(this.registerData).subscribe({
       next: () => {
         Swal.fire({
@@ -79,13 +90,25 @@ export class LoginComponent {
         });
         this.alternar();
       },
-      error: () => {
+      error: (err) => {
+        let msg = 'Não foi possível concluir o cadastro.';
+
+        if (err.error) {
+          if (typeof err.error === 'string') {
+            msg = err.error;
+          } else if (typeof err.error === 'object') {
+            const firstKey = Object.keys(err.error)[0];
+            if (firstKey) msg = err.error[firstKey];
+          }
+        }
+
         Swal.fire({
           icon: 'error',
           title: 'Erro no cadastro',
-          text: 'Não foi possível concluir o cadastro.'
+          text: msg
         });
       }
+
     });
   }
 }

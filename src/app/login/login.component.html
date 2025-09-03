@@ -25,10 +25,11 @@
       <h2>Cadastro</h2>
 
       <div class="form-fields">
-        <input type="text" placeholder="Usuário" [(ngModel)]="registerData.login" />
-        <input type="password" placeholder="Senha" [(ngModel)]="registerData.senha" />
-        <input type="password" placeholder="Confirmar Senha" [(ngModel)]="confirmarSenha" />
-        <input type="email" placeholder="E-mail" [(ngModel)]="registerData.email" />
+        <input type="text" placeholder="Usuário" [(ngModel)]="registerData.login" required/>
+        <input type="password" placeholder="Senha" [(ngModel)]="registerData.senha" required/>
+        <input type="password" placeholder="Confirmar Senha" [(ngModel)]="confirmarSenha" required/>
+        <input type="email" placeholder="E-mail" [(ngModel)]="registerData.email" required/>
+        <input type="text" placeholder="Nome" [(ngModel)]="registerData.nome"required />
 
         <button class="jelly-button jelly-secondary" (click)="cadastrar()">
           <span class="char" *ngFor="let c of cadastrarLabel; let i = index" [style.--i]="i + 1">{{ c }}</span>
