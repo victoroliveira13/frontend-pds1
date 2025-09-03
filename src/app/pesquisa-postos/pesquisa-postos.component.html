@@ -1,19 +1,37 @@
-<div class="container">
-  <main class="main-content">
+<div class="container-principal">
+  <div class="sidebar">
     <h1 class="titulo">Pesquisa de Postos</h1>
-    <input type="text" placeholder="Filtrar por nome do posto..." class="filtro">
 
-    <div class="tabela-wrapper">
-      <!-- Google Maps embed -->
-      <iframe
-        width="100%"
-        height="450"
-        style="border:0; border-radius: 10px;"
-        loading="lazy"
-        allowfullscreen
-        referrerpolicy="no-referrer-when-downgrade"
-        src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Postos+de+Combustível+Brasil">
-      </iframe>
+    <div class="input-container">
+      <input 
+        type="text" 
+        placeholder="Filtrar por nome do posto..." 
+        class="filtro-input"
+        [(ngModel)]="filtro"
+      >
     </div>
-  </main>
+
+    <ul class="lista-postos">
+      <li *ngIf="carregandoPostos" class="loading-item">Carregando postos...</li>
+      
+      <li *ngFor="let posto of postos | filtroPostos:filtro" 
+          (click)="irParaPosto(posto)" 
+          (mouseenter)="destacarMarcador(posto, true)"
+          (mouseleave)="destacarMarcador(posto, false)"
+          class="item-posto"
+          [class.destacado]="posto.destacado">
+
+        <div class="nome-posto">{{ posto.razaoSocial }}</div>
+        <div class="endereco-posto">{{ posto.logradouro }}, {{ posto.numero }}</div>
+      </li>
+
+      <li *ngIf="(postos | filtroPostos:filtro).length === 0 && !carregandoPostos" class="item-vazio">
+        Nenhum posto encontrado.
+      </li>
+    </ul>
+  </div>
+
+  <div class="map-container">
+    <div id="map"></div>
+  </div>
 </div>

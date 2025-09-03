@@ -15,6 +15,7 @@ export interface Posto {
   numero: string;
   cidade: string;
   combustiveis?: Combustivel[];
+  destacado?: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
