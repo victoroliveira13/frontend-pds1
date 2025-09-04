@@ -1,7 +1,12 @@
 <div class="container">
   <main class="main-content">
     <h1 class="titulo">Lista de Preços</h1>
-    <input type="text" [(ngModel)]="filtro" placeholder="Filtrar por nome do posto..." class="filtro">
+    <input 
+      type="text" 
+      [(ngModel)]="filtro" 
+      placeholder="Filtrar por nome do posto..." 
+      class="filtro"
+    >
 
     <div class="tabela-wrapper">
       <table>
@@ -10,6 +15,7 @@
             <th>Nome</th>
             <th>Localização</th>
             <th *ngFor="let tipo of tiposCombustivel">{{ tipo | titlecase }}</th>
+            <th class="coluna-acao">Histórico</th>
           </tr>
         </thead>
         <tbody>
@@ -17,9 +23,56 @@
             <td>{{ posto.razaoSocial }}</td>
             <td>{{ formatEndereco(posto) }}</td>
             <td *ngFor="let tipo of tiposCombustivel">{{ getPreco(posto, tipo) }}</td>
+            
+            <td class="coluna-acao">
+              <button (click)="abrirModalHistorico(posto)" class="botao-historico" title="Ver Histórico">
+                <i class="fa fa-history"></i>
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
   </main>
+</div>
+
+<div *ngIf="postoSelecionado" class="modal-overlay">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    
+    <div class="modal-header">
+      <h2 class="modal-title">Histórico de Preços</h2>
+      <button (click)="fecharModal()" class="botao-fechar">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <h4>{{ postoSelecionado.razaoSocial }}</h4>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Data da Alteração</th>
+              <th>Combustível</th>
+              <th>Novo Preço</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of historicoDoPosto">
+              <td>{{ item.dataAlteracao | date:'dd/MM/yyyy HH:mm' }}</td>
+              <td>{{ getCombustivelNome(item.combustivelId) }}</td>
+              <td>{{ item.preco | currency:'BRL' }}</td>
+            </tr>
+            <tr *ngIf="historicoDoPosto.length === 0">
+              <td colspan="3" class="nenhum-historico">
+                Nenhum histórico encontrado para este posto.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button (click)="fecharModal()" class="botao-fechar-footer">Fechar</button>
+    </div>
+  </div>
 </div>
